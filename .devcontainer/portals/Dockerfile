@@ -7,7 +7,7 @@ ARG PORTALS_REPO_URL=https://github.com/apache/airavata-portals/archive/refs/hea
 
 # set hostname
 RUN echo "ServerName airavata.host" >> /etc/apache2/apache2.conf
-
+RUN echo "Listen 8008" >> /etc/apache2/ports.conf
 # install deps
 RUN apt-get update && apt-get install -y wget git unzip && rm -rf /var/lib/apt/lists/*
 RUN wget -qO- https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -30,4 +30,5 @@ COPY pga_config.php /var/www/html/default/config/pga_config.php
 
 RUN composer install --no-dev --optimize-autoloader
 
-EXPOSE 5173 8008 8009
+# EXPOSE 5173 8008 8009
+EXPOSE 8008

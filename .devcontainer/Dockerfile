@@ -13,11 +13,11 @@ RUN apt-get update && \
     openjdk-17-jdk \
     && rm -rf /var/lib/apt/lists/*
 
-# Install maven 3.9.10
-RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.10/binaries/apache-maven-3.9.10-bin.tar.gz \
-    && tar -xzf apache-maven-3.9.10-bin.tar.gz \
-    && mv apache-maven-3.9.10 /opt/maven \
-    && rm apache-maven-3.9.10-bin.tar.gz
+# Install maven 3.9.11
+RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.11/binaries/apache-maven-3.9.11-bin.tar.gz \
+    && tar -xzf apache-maven-3.9.11-bin.tar.gz \
+    && mv apache-maven-3.9.11 /opt/maven \
+    && rm apache-maven-3.9.11-bin.tar.gz
 
 # Install go 1.23.0
 RUN wget https://go.dev/dl/go1.23.0.linux-amd64.tar.gz \
@@ -52,7 +52,8 @@ FROM deps AS compiler
 
 COPY --chown=developer:developer .. /home/developer/workspace
 WORKDIR /home/developer/workspace
-RUN mvn clean install -DskipTests
+RUN ls -al /home/developer/workspace
+RUN mvn clean install -DskipTests -X
 
 
 FROM eclipse-temurin:17-jdk AS runner
